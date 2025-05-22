@@ -14,6 +14,7 @@ import EditUserDialog from "./dialog/edit";
 import ViewUserDialog from "./dialog/view";
 import DeleteUserDialog from "./dialog/delete";
 import DataTableColumnHeader from "@/components/data-table-column-header";
+import { useTimeAgo } from "@/hooks/use-time-ago";
 
 const NameCell = ({ row }) => {
     const { name, email } = row.original;
@@ -81,7 +82,7 @@ const StatusCell = ({ row }) => {
 
     return (
         <>
-            <Select value={data.status} onValueChange={handleStatusChange}>
+            <Select value={data.status} onValueChange={handleStatusChange} disabled={processing}>
                 <SelectTrigger className="h-8 text-xs capitalize">
                     <SelectValue placeholder={data.status} />
                 </SelectTrigger>
@@ -105,6 +106,27 @@ const StatusCell = ({ row }) => {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
+        </>
+    );
+};
+
+const TimeAgoCell = ({ date }) => {
+    const timeAgoString = useTimeAgo(date, 60000);
+
+    const formattedDate = new Intl.DateTimeFormat('en-PH', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        hour12: true,
+    }).format(date);
+
+    return (
+        <>
+            <div className="text-sm text-muted-foreground">
+                {formattedDate}
+            </div>
+            <div className="text-xs text-muted-foreground">
+                {timeAgoString}
+            </div>
         </>
     );
 };
@@ -156,10 +178,22 @@ export const Columns = [
     {
         accessorKey: 'updated_at',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Updated At" />,
+        cell: ({ row }) => {
+            const { updated_at } = row.original;
+            const date = new Date(updated_at);
+
+            return <TimeAgoCell date={date} />;
+        }
     },
     {
         accessorKey: 'created_at',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Created At" />,
+        cell: ({ row }) => {
+            const { created_at } = row.original;
+            const date = new Date(created_at);
+
+            return <TimeAgoCell date={date} />;
+        }
     },
     {
         id: 'actions',
