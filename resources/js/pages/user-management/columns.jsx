@@ -26,11 +26,6 @@ const NameCell = ({ row }) => {
     );
 };
 
-const RoleCell = ({ row }) => {
-    const { role } = row.original;
-    return <Badge variant="outline">{role}</Badge>;
-};
-
 const StatusCell = ({ row }) => {
     const { status, id } = row.original;
     const [isOpen, setIsOpen] = React.useState(false);
@@ -164,11 +159,6 @@ export const Columns = [
         accessorKey: 'name',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
         cell: ({ row }) => <NameCell row={row} />,
-    },
-    {
-        accessorKey: 'role',
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Role" />,
-        cell: ({ row }) => <RoleCell row={row} />,
     },
     {
         accessorKey: 'status',

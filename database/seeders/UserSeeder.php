@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
             'name' => 'Jan Lawrence Madali',
             'email' => 'jan.lawrence.madali.bmiofficial@outlook.com',
             'password' => bcrypt('password'),
-            'role_id' => 1,
         ]);
     }
 }
