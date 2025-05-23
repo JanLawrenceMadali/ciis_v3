@@ -3,7 +3,7 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MoreHorizontal } from "lucide-react";
+import { Loader2, MoreHorizontal } from "lucide-react";
 import { useForm } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -97,7 +97,10 @@ const StatusCell = ({ row }) => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel onClick={cancelStatusChange}>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={confirmStatusChange}>Confirm</AlertDialogAction>
+                        <AlertDialogAction onClick={confirmStatusChange} disabled={processing}>
+                            {processing ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+                            <span>Confirm</span>
+                        </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>

@@ -9,7 +9,7 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::get();
         return inertia('user-management/index', [
             'users' => $users->map(function ($user) {
                 return [
@@ -17,7 +17,6 @@ class UserManagementController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'status' => $user->status,
-                    'role' => $user->roles ? $user->roles->name : null,
                     'updated_at' => $user->updated_at->format('Y-m-d H:i:s'),
                     'created_at' => $user->created_at->format('Y-m-d H:i:s'),
                 ];
