@@ -2,7 +2,7 @@ import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { Link } from '@inertiajs/react';
-import { Home, UserCog2, Users2 } from 'lucide-react';
+import { Home, UserCog2, Users2, LayoutGrid, Settings } from 'lucide-react';
 import AppLogo from './app-logo';
 import { SearchDialog } from './search-dialog';
 
@@ -21,44 +21,63 @@ const mainNavItems = [
         title: 'Role Management',
         href: '/role-management',
         icon: UserCog2,
-    }
-    // {
-    //     title: 'Main Modules',
-    //     icon: LayoutGrid,
-    //     items: [
-    //         {
-    //             title: 'Sub Module 1',
-    //             href: '/dashboard/sub-module-1',
-    //             icon: LayoutGrid,
-    //         },
-    //         {
-    //             title: 'Sub Module 2',
-    //             href: '/dashboard/sub-module-2',
-    //             icon: LayoutGrid,
-    //         },
-    //     ],
-    // },
+    },
+    {
+        title: 'Master',
+        icon: Users2,
+        items: [
+            {
+                title: 'User Management',
+                href: '/user-management',
+            },
+            {
+                title: 'Branch / Office Management',
+                href: '#',
+                items: [
+                    {
+                        title: 'Branch Management',
+                        href: '#',
+                    },
+                    {
+                        title: 'Group Management',
+                        href: '#',
+                    },                    {
+                        title: 'Division Management',
+                        href: '#',
+                    },
+                                        {
+                        title: 'Department Management',
+                        href: '#',
+                    },
+                                        {
+                        title: 'Section Management',
+                        href: '#',
+                    },
+                ],
+            },
+        ],
+    },
     // {
     //     title: 'Reports',
     //     href: '#',
     //     icon: FileText,
     // },
-    // {
-    //     title: 'Master Setup',
-    //     icon: Settings,
-    //     items: [
-    //         {
-    //             title: 'Sub Module 1',
-    //             href: '/dashboard/sub-module-1',
-    //             icon: LayoutGrid,
-    //         },
-    //         {
-    //             title: 'Sub Module 2',
-    //             href: '/dashboard/sub-module-2',
-    //             icon: LayoutGrid,
-    //         },
-    //     ],
-    // },
+    {
+        title: 'Master Setup',
+        icon: Settings,
+        items: [
+            {
+                title: 'Sub Module 1',
+                href: '/dashboard/sub-module-1',
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Sub Module 2',
+                href: '/dashboard/sub-module-2',
+                icon: LayoutGrid,
+            },
+        ],
+    },
     // {
     //     title: 'Security Module',
     //     href: '#',

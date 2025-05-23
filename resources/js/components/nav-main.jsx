@@ -16,10 +16,10 @@ export function NavMain({ items = [] }) {
                     if (!hasSubmenu) {
                         return (
                             <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton className={['h-10',
+                                <SidebarMenuButton className={
                                     item.href === page.url
                                         ? 'bg-gradient-to-r from-blue-950 to-blue-800 text-white hover:text-white'
-                                        : 'bg-gradient-to-r hover:from-blue-950 hover:to-blue-800 transition duration-300 hover:text-white']}
+                                        : 'bg-gradient-to-r hover:from-blue-950 hover:to-blue-800 transition duration-300 hover:text-white'}
                                     asChild
                                     tooltip={{ children: item.title }}
                                 >
@@ -36,13 +36,14 @@ export function NavMain({ items = [] }) {
                             key={item.title}
                             asChild
                             className="group/collapsible"
+                            defaultOpen={item.items.some((subItem) => subItem.href === page.url)}
                         >
                             <SidebarMenuItem>
                                 <CollapsibleTrigger asChild
-                                    className={['h-10',
-                                        item.href === page.url
+                                    className={
+                                        item.href === page.url || item.items.some((subItem) => subItem.href === page.url)
                                             ? 'bg-gradient-to-r from-blue-950 to-blue-800 text-white hover:text-white'
-                                            : 'bg-gradient-to-r hover:from-blue-950 hover:to-blue-800 transition duration-300 hover:!text-white']}>
+                                            : 'bg-gradient-to-r hover:from-blue-950 hover:to-blue-800 transition duration-300 hover:text-white'}>
                                     <SidebarMenuButton tooltip={item.title}>
                                         {item.icon && <item.icon />}
                                         <span>{item.title}</span>
@@ -53,9 +54,10 @@ export function NavMain({ items = [] }) {
                                     <SidebarMenuSub>
                                         {item.items?.map((subItem) => (
                                             <SidebarMenuSubItem key={subItem.title}>
-                                                <SidebarMenuSubButton asChild className={subItem.href === page.url
-                                                    ? 'bg-gradient-to-r from-blue-950 to-blue-800 text-white hover:text-white'
-                                                    : 'bg-gradient-to-r hover:from-blue-950 hover:to-blue-800 transition duration-200 hover:text-white'}>
+                                                <SidebarMenuSubButton asChild className={
+                                                    subItem.href === page.url
+                                                        ? 'bg-gradient-to-r from-blue-950 to-blue-800 text-white hover:text-white'
+                                                        : 'bg-gradient-to-r hover:from-blue-950 hover:to-blue-800 transition duration-300 hover:text-white'}>
                                                     <Link href={subItem.href} prefetch>
                                                         <span>{subItem.title}</span>
                                                     </Link>
