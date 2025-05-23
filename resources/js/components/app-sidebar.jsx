@@ -1,7 +1,6 @@
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { Link } from '@inertiajs/react';
 import { Home, UserCog2, Users2 } from 'lucide-react';
 import AppLogo from './app-logo';
@@ -68,6 +67,8 @@ const mainNavItems = [
 ];
 
 export function AppSidebar() {
+    const { state, open } = useSidebar();
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -80,7 +81,9 @@ export function AppSidebar() {
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
-                <SearchDialog />
+                <SearchDialog
+                    sidebarOpen={open}
+                />
             </SidebarHeader>
 
             <SidebarContent>
