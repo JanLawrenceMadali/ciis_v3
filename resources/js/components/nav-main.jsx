@@ -1,76 +1,90 @@
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from '@/components/ui/sidebar';
-import { Link, usePage } from '@inertiajs/react';
+import {
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarMenuSub
+} from '@/components/ui/sidebar';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Folder } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
 
 export function NavMain({ items = [] }) {
-    const page = usePage();
     return (
-        <SidebarGroup className="px-2 py-0">
+        <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
-            <SidebarMenu>
-                {items.map((item) => {
-
-                    const hasSubmenu = item.items && item.items.length > 0;
-
-                    if (!hasSubmenu) {
-                        return (
-                            <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton className={
-                                    item.href === page.url
-                                        ? 'bg-gradient-to-r from-blue-950 to-blue-800 text-white hover:text-white'
-                                        : 'bg-gradient-to-r hover:from-blue-950 hover:to-blue-800 transition duration-300 hover:text-white'}
-                                    asChild
-                                    tooltip={{ children: item.title }}
-                                >
-                                    <Link href={item.href} prefetch>
-                                        {item.icon && <item.icon />}
-                                        <span>{item.title}</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        )
-                    }
-                    return (
-                        <Collapsible
-                            key={item.title}
-                            asChild
-                            className="group/collapsible"
-                            defaultOpen={item.items.some((subItem) => subItem.href === page.url)}
-                        >
-                            <SidebarMenuItem>
-                                <CollapsibleTrigger asChild
-                                    className={
-                                        item.href === page.url || item.items.some((subItem) => subItem.href === page.url)
-                                            ? 'bg-gradient-to-r from-blue-950 to-blue-800 text-white hover:text-white'
-                                            : 'bg-gradient-to-r hover:from-blue-950 hover:to-blue-800 transition duration-300 hover:text-white'}>
-                                    <SidebarMenuButton tooltip={item.title}>
-                                        {item.icon && <item.icon />}
-                                        <span>{item.title}</span>
-                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                                    </SidebarMenuButton>
-                                </CollapsibleTrigger>
-                                <CollapsibleContent>
-                                    <SidebarMenuSub>
-                                        {item.items?.map((subItem) => (
-                                            <SidebarMenuSubItem key={subItem.title}>
-                                                <SidebarMenuSubButton asChild className={
-                                                    subItem.href === page.url
-                                                        ? 'bg-gradient-to-r from-blue-950 to-blue-800 text-white hover:text-white'
-                                                        : 'bg-gradient-to-r hover:from-blue-950 hover:to-blue-800 transition duration-300 hover:text-white'}>
-                                                    <Link href={subItem.href} prefetch>
-                                                        <span>{subItem.title}</span>
-                                                    </Link>
-                                                </SidebarMenuSubButton>
-                                            </SidebarMenuSubItem>
-                                        ))}
-                                    </SidebarMenuSub>
-                                </CollapsibleContent>
-                            </SidebarMenuItem>
-                        </Collapsible>
-                    )
-                })}
-            </SidebarMenu>
+            <SidebarGroupContent>
+                <SidebarMenu>
+                    {items.navItems.map((item, index) => (
+                        <Tree key={index} item={item} />
+                    ))}
+                </SidebarMenu>
+            </SidebarGroupContent>
         </SidebarGroup>
+    );
+}
+
+function Tree({ item }) {
+    const page = usePage();
+    if (!item.items || item.items.length === 0) {
+        const IconComponent = item.icon;
+        return (
+            <SidebarMenuItem>
+                <SidebarMenuButton
+                    tooltip={item.title}
+                    className={['h-9 bg-gradient-to-r transition duration-300',
+                        item.href === page.url
+                            ? 'from-blue-950 to-blue-800 !text-white hover:!text-white'
+                            : 'hover:from-blue-950 hover:to-blue-800 hover:!text-white',
+                    ]}
+                    asChild={!!item.href}
+                >
+                    {item.href ? (
+                        <Link href={item.href}>
+                            {IconComponent && <IconComponent />}
+                            {item.title}
+                        </Link>
+                    ) : (
+                        <>
+                            {IconComponent && <IconComponent />}
+                            {item.title}
+                        </>
+                    )}
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+        );
+    }
+
+    const IconComponent = item.icon;
+    return (
+        <SidebarMenuItem>
+            <Collapsible
+                className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
+                defaultOpen={item.items.some(subItem => subItem.href === page.url)
+                    || item.items.some(subItem => subItem.items && subItem.items.some(subSubItem => subSubItem.href === page.url))}
+            >
+                <CollapsibleTrigger asChild>
+                    <SidebarMenuButton className={['h-9 bg-gradient-to-r transition duration-300',
+                        item.items.some(subItem => subItem.href === page.url)
+                        || item.items.some(subItem => subItem.items && subItem.items.some(subSubItem => subSubItem.href === page.url))
+                            ? 'from-blue-950 to-blue-800 !text-white hover:!text-white'
+                            : 'hover:from-blue-950 hover:to-blue-800 hover:!text-white',
+                    ].join(' ')}>
+                        <ChevronRight className="transition-transform" />
+                        {IconComponent ? <IconComponent /> : <Folder />}
+                        <span title={item.title}>{item.title}</span>
+                    </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                    <SidebarMenuSub className="truncate">
+                        {item.items.map((subItem, index) => (
+                            <Tree key={index} item={subItem} />
+                        ))}
+                    </SidebarMenuSub>
+                </CollapsibleContent>
+            </Collapsible>
+        </SidebarMenuItem>
     );
 }

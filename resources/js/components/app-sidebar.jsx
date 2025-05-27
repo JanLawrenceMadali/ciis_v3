@@ -1,92 +1,64 @@
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator, useSidebar } from '@/components/ui/sidebar';
 import { Link } from '@inertiajs/react';
-import { Home, UserCog2, Users2, LayoutGrid, Settings } from 'lucide-react';
+import { Home, UserCog2, Users2 } from 'lucide-react';
 import AppLogo from './app-logo';
 import { SearchDialog } from './search-dialog';
 
-const mainNavItems = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: Home,
-    },
-    {
-        title: 'User Management',
-        href: '/user-management',
-        icon: Users2,
-    },
-    {
-        title: 'Role Management',
-        href: '/role-management',
-        icon: UserCog2,
-    },
-    {
-        title: 'Master',
-        icon: Users2,
-        items: [
-            {
-                title: 'User Management',
-                href: '/user-management',
-            },
-            {
-                title: 'Branch / Office Management',
-                href: '#',
-                items: [
-                    {
-                        title: 'Branch Management',
-                        href: '#',
-                    },
-                    {
-                        title: 'Group Management',
-                        href: '#',
-                    },                    {
-                        title: 'Division Management',
-                        href: '#',
-                    },
-                                        {
-                        title: 'Department Management',
-                        href: '#',
-                    },
-                                        {
-                        title: 'Section Management',
-                        href: '#',
-                    },
-                ],
-            },
-        ],
-    },
-    // {
-    //     title: 'Reports',
-    //     href: '#',
-    //     icon: FileText,
-    // },
-    {
-        title: 'Master Setup',
-        icon: Settings,
-        items: [
-            {
-                title: 'Sub Module 1',
-                href: '/dashboard/sub-module-1',
-                icon: LayoutGrid,
-            },
-            {
-                title: 'Sub Module 2',
-                href: '/dashboard/sub-module-2',
-                icon: LayoutGrid,
-            },
-        ],
-    },
-    // {
-    //     title: 'Security Module',
-    //     href: '#',
-    //     icon: Lock,
-    // },
-];
+const data = {
+    navItems: [
+        {
+            title: 'Dashboard',
+            href: '/dashboard',
+            icon: Home,
+        },
+        {
+            title: 'User Management',
+            href: '/user-management',
+            icon: Users2,
+        },
+        {
+            title: 'Role Management',
+            href: '/role-management',
+            icon: UserCog2,
+        },
+        {
+            title: 'Master',
+            items: [
+                {
+                    title: 'Branch / Office Management',
+                    href: '#',
+                    items: [
+                        {
+                            title: 'Branch',
+                            href: '/dashboard',
+                        },
+                        {
+                            title: 'Group',
+                            href: '/user-management',
+                        }, {
+                            title: 'Division',
+                            href: '/role-management',
+                        },
+                        {
+                            title: 'Department',
+                            href: '#',
+                        },
+                        {
+                            title: 'Section',
+                            href: '#',
+                        },
+                    ],
+                },
+            ],
+        },
+    ]
+}
+
 
 export function AppSidebar() {
-    const { state, open } = useSidebar();
+    const { open } = useSidebar();
 
     return (
         <Sidebar collapsible="icon" variant="inset">
@@ -106,7 +78,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={data} />
             </SidebarContent>
 
             <SidebarFooter>
