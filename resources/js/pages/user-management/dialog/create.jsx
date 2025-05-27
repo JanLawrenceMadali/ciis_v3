@@ -6,7 +6,7 @@ export default function CreateUserDialog() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="h-8 px-4 py-2 text-white transition duration-300 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-950 hover:to-blue-900">
+                <Button className="px-4 py-2 text-white transition duration-300 h-9 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-950 hover:to-blue-900">
                     <UserPlus className="w-4 h-4" />
                     Create User
                 </Button>

@@ -42,7 +42,7 @@ export function SearchDialog({ sidebarOpen }) {
 
     return (
         <>
-            <Button variant="outline" className={['flex hover:cursor-text text-zinc-500', sidebarOpen && 'justify-between']} onClick={() => { setOpen(!open) }}>
+            <Button variant="outline" className={['flex hover:cursor-text text-zinc-500 mt-1', sidebarOpen && 'justify-between']} onClick={() => { setOpen(!open) }}>
                 <div className="flex items-center gap-2">
                     <Search />
                     {sidebarOpen ? "Search Menu" : ""}
