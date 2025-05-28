@@ -5,6 +5,7 @@ import { Link } from '@inertiajs/react';
 import { Home, UserCog2, Users2 } from 'lucide-react';
 import AppLogo from './app-logo';
 import { SearchDialog } from './search-dialog';
+import AppLogoBanner from './app-logo-banner';
 
 const data = {
     navItems: [
@@ -67,7 +68,12 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href="/dashboard" prefetch>
-                                <AppLogo />
+                                <div className='lg:hidden'>
+                                    <AppLogoBanner sidebarOpen={open} />
+                                </div>
+                                <div className='hidden lg:block'>
+                                    <AppLogo sidebarOpen={open} />
+                                </div>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -78,7 +84,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={data} />
+                <NavMain sidebarOpen={open} items={data} />
             </SidebarContent>
 
             <SidebarFooter>

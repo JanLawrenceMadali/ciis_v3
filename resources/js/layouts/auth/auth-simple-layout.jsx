@@ -1,4 +1,4 @@
-import AppLogoIcon from '@/components/app-logo-icon';
+import AppLogoBanner from '@/components/app-logo-banner';
 import { Link } from '@inertiajs/react';
 
 export default function AuthSimpleLayout({ children, title, description }) {
@@ -8,9 +8,7 @@ export default function AuthSimpleLayout({ children, title, description }) {
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col items-center gap-4">
                         <Link href={route('home')} className="flex flex-col items-center gap-2 font-medium">
-                            <div className="mb-1 flex h-9 w-9 items-center justify-center rounded-md">
-                                <AppLogoIcon className="size-9 fill-current text-[var(--foreground)] dark:text-white" />
-                            </div>
+                            <AppLogoBanner />
                             <span className="sr-only">{title}</span>
                         </Link>
 
