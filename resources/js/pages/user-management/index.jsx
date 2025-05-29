@@ -18,7 +18,7 @@ export default function UserManagement({ users }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="User Management" />
-            <DataTable columns={columns} data={data} action={<CreateUserDialog />} />
+            <DataTable columns={columns} data={data} action={<CreateUserDialog />} hasSearch />
         </AppLayout>
     )
 }
