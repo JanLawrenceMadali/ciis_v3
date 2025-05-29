@@ -2,7 +2,7 @@ import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator, useSidebar } from '@/components/ui/sidebar';
 import { Link } from '@inertiajs/react';
-import { Home, UserCog2, Users2 } from 'lucide-react';
+import { Cog, Home, UserCog2, Users2 } from 'lucide-react';
 import AppLogo from './app-logo';
 import { SearchDialog } from './search-dialog';
 import AppLogoBanner from './app-logo-banner';
@@ -26,6 +26,7 @@ const data = {
         },
         {
             title: 'Master',
+            icon: Cog,
             items: [
                 {
                     title: 'Branch / Office Management',
@@ -59,7 +60,7 @@ const data = {
 
 
 export function AppSidebar() {
-    const { open } = useSidebar();
+    const { open, toggleSidebar } = useSidebar();
 
     return (
         <Sidebar collapsible="icon" variant="inset">
@@ -68,10 +69,10 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href="/dashboard" prefetch>
-                                <div className='lg:hidden'>
+                                <div className='md:hidden'>
                                     <AppLogoBanner sidebarOpen={open} />
                                 </div>
-                                <div className='hidden lg:block'>
+                                <div className='hidden md:block'>
                                     <AppLogo sidebarOpen={open} />
                                 </div>
                             </Link>
@@ -84,7 +85,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain sidebarOpen={open} items={data} />
+                <NavMain toggleSidebar={toggleSidebar} sidebarOpen={open} items={data} />
             </SidebarContent>
 
             <SidebarFooter>

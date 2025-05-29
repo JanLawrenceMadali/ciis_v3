@@ -5,7 +5,7 @@ import { Input } from "./ui/input"
 import { Search } from "lucide-react"
 import DataTablePagination from "./data-table-pagination"
 
-export default function DataTable({ columns, data, action }) {
+export default function DataTable({ columns, data, action, hasSearch }) {
 
     const [sorting, setSorting] = React.useState([])
     const [globalFilter, setGlobalFilter] = React.useState('')
@@ -27,8 +27,8 @@ export default function DataTable({ columns, data, action }) {
 
     return (
         <div className="m-4">
-            <div className="flex items-center justify-between">
-                <div className="relative flex items-center py-4">
+            <div className={hasSearch ? ' flex items-center py-4 justify-between' : 'flex items-center py-4 justify-end'}>
+                {hasSearch && <div className="relative flex items-center">
                     <Input type="search"
                         placeholder="Search..."
                         value={globalFilter ?? ""}
@@ -38,7 +38,7 @@ export default function DataTable({ columns, data, action }) {
                     <span className="absolute inset-y-0 flex items-center justify-center px-2 start-0">
                         <Search className="size-4 text-muted-foreground" />
                     </span>
-                </div>
+                </div>}
                 {action}
             </div>
             <div className="p-2 border rounded-md">
@@ -66,7 +66,6 @@ export default function DataTable({ columns, data, action }) {
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>

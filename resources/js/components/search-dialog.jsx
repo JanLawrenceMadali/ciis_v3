@@ -42,16 +42,24 @@ export function SearchDialog({ sidebarOpen }) {
 
     return (
         <>
-            <Button variant="outline" className={['flex hover:cursor-text text-zinc-500 mt-1', sidebarOpen && 'justify-between']} onClick={() => { setOpen(!open) }}>
+            <Button variant="outline" className={['flex hover:cursor-text text-zinc-500 mt-1', sidebarOpen ? 'justify-between' : 'justify-between md:justify-center']} onClick={() => { setOpen(!open) }}>
                 <div className="flex items-center gap-2">
                     <Search />
-                    {sidebarOpen ? "Search Menu" : ""}
+                    {
+                        sidebarOpen
+                            ? "Search Menu"
+                            : <span className="md:hidden">Search Menu</span>
+                    }
                 </div>
                 {
-                    sidebarOpen &&
-                    <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
-                        <span className="text-xs">CTRL</span>K
-                    </kbd>
+                    sidebarOpen ?
+                        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
+                            <span className="text-xs">CTRL</span>K
+                        </kbd>
+                        :
+                        <kbd className="md:hidden pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
+                            <span className="text-xs">CTRL</span>K
+                        </kbd>
                 }
             </Button>
 
